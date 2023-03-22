@@ -8,6 +8,12 @@ namespace allSpiceButTheGoodOne.Services
     {
         _repo = repo;
     }
+
+        internal static Recipe Find(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         internal Recipe CreateRecipe(Recipe recipeData)
         {
             Recipe recipe = _repo.CreateRecipe(recipeData);
