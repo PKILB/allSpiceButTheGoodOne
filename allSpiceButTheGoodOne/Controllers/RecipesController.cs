@@ -13,6 +13,21 @@ namespace allSpiceButTheGoodOne.Controllers
             _auth = auth;
         }
 
+    [HttpGet]
+    async public Task<ActionResult<List<Recipe>>> FindRecipe()
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            List<Recipe> recipes = _recipesService.GetRecipes(userInfo?.Id);
+            return Ok(recipes);
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost]
     [Authorize]
 

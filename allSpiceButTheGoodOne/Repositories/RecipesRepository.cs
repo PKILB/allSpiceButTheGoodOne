@@ -22,5 +22,22 @@ namespace allSpiceButTheGoodOne.Repositories
             recipeData.Id = id;
             return recipeData;
         }
+
+        internal List<Recipe> GetAll()
+        {
+            string sql = @"
+            SELECT
+            rec.*,
+            acct.*
+            FROM recipes rec
+            JOIN accounts acct ON rec.creatorId = acct.id;
+            ";
+            List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, prof) =>
+            {
+                recipe.Creator = prof;
+                return recipe;
+            }).ToList();
+            return recipes;
+        }
     }
 }

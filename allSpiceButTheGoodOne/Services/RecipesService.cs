@@ -13,5 +13,11 @@ namespace allSpiceButTheGoodOne.Services
             Recipe recipe = _repo.CreateRecipe(recipeData);
             return recipe;
         }
+
+        internal List<Recipe> GetRecipes(string userId)
+        {
+            List<Recipe> recipes = _repo.GetAll();
+            return recipes;
+        }
     }
 }
