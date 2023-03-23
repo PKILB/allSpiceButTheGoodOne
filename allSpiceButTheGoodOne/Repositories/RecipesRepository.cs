@@ -39,5 +39,38 @@ namespace allSpiceButTheGoodOne.Repositories
             }).ToList();
             return recipes;
         }
+
+        internal Recipe GetOne(int id)
+        {
+            string sql = @"
+            SELECT 
+            rec.*,
+            acct.*
+            FROM recipes rec
+            JOIN accounts acct ON rec.creatorId = acct.id
+            WHERE rec.id = @id;
+            ";
+            Recipe recipe = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, prof) =>
+            {
+                recipe.Creator = prof;
+                return recipe;
+            }, new { id }).FirstOrDefault();
+            return recipe;
+        }
+
+        internal int UpdateRecipe(Recipe update)
+        {
+            string sql = @"
+            UPDATE recipes
+            SET
+            title = @title,
+            instructions = @instructions,
+            category = @category,
+            img = @img
+            WHERE recipes.id = @id 
+            ";
+            int rows = _db.Execute(sql, update);
+            return rows;
+        }
     }
 }

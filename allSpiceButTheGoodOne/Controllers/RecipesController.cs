@@ -19,7 +19,7 @@ namespace allSpiceButTheGoodOne.Controllers
         try
         {
             Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-            Recipe recipe = RecipesService.Find(id);
+            Recipe recipe = _recipesService.GetRecipe(id, userInfo.Id);
             return Ok(recipe);
         }
         catch (System.Exception e)
@@ -54,6 +54,23 @@ namespace allSpiceButTheGoodOne.Controllers
             recipeData.CreatorId = userInfo.Id;
             Recipe recipe = _recipesService.CreateRecipe(recipeData);
             recipe.Creator = userInfo;
+            return Ok(recipe);
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Recipe>> UpdateRecipe(int id, [FromBody] Recipe updateData)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            // updateData.CreatorId = userInfo.Id;
+            Recipe recipe = _recipesService.UpdateRecipe(id, updateData, userInfo);
             return Ok(recipe);
         }
         catch (System.Exception e)
