@@ -58,6 +58,15 @@ namespace allSpiceButTheGoodOne.Repositories
             return recipe;
         }
 
+        internal bool removeRecipe(int id)
+        {
+            string sql = @"
+            DELETE FROM recipes WHERE id = @id;
+            ";
+            int rows = _db.Execute(sql, new { id });
+            return rows == 1;
+        }
+
         internal int UpdateRecipe(Recipe update)
         {
             string sql = @"

@@ -78,6 +78,22 @@ namespace allSpiceButTheGoodOne.Controllers
             return BadRequest(e.Message);
         }
     }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    async public Task<ActionResult<string>> RemoveRecipe(int id)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            String message = _recipesService.RemoveRecipe(id, userInfo);
+            return Ok(message);
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
     }
     
 }

@@ -43,5 +43,14 @@ namespace allSpiceButTheGoodOne.Services
 
             return original;
         }
+
+        internal string RemoveRecipe(int id, Account userInfo)
+        {
+            Recipe recipe = this.GetRecipe(id, userInfo.Id);
+            bool result = _repo.removeRecipe(id);
+            if (recipe.CreatorId != userInfo.Id) throw new Exception("You don't own that!");
+            // _repo.removeRecipe(recipe);
+            return $"You have successfully deleted the {recipe.Title} recipe!";;
+        }
     }
 }
