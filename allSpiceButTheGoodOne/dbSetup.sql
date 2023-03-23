@@ -21,8 +21,10 @@ CREATE TABLE IF NOT EXISTS recipes(
 CREATE TABLE IF NOT EXISTS ingredients(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
-  quantity INT NOT NULL DEFAULT 0,
+  quantity VARCHAR(100) NOT NULL,
   recipeId INT NOT NULL,
 
   FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+DROP TABLE ingredients;

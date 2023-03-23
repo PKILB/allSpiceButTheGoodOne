@@ -50,7 +50,7 @@ namespace allSpiceButTheGoodOne.Services
             bool result = _repo.removeRecipe(id);
             if (recipe.CreatorId != userInfo.Id) throw new Exception("You don't own that!");
             // _repo.removeRecipe(recipe);
-            return $"You have successfully deleted the {recipe.Title} recipe!";;
+            return $"You have successfully deleted the {recipe.Title} recipe!";
         }
     }
 }

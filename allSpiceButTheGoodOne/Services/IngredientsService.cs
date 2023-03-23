@@ -1,12 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace allSpiceButTheGoodOne.Services
 {
     public class IngredientsService
     {
-        
+        private readonly IngredientsRepository _repo;
+
+        public IngredientsService(IngredientsRepository repo)
+        {
+            _repo = repo;
+        }
+
+        internal Ingredient CreateIngredient(Ingredient ingredientData)
+        {
+            Ingredient ingredient = _repo.CreateIngredient(ingredientData);
+            return ingredient;
+        }
     }
 }
