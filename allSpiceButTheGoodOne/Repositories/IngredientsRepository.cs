@@ -22,5 +22,38 @@ namespace allSpiceButTheGoodOne.Repositories
             ingredientData.Id = id;
             return ingredientData;
         }
+
+        internal bool deleteIngredient(int recipeId)
+        {
+            string sql = @"
+            DELETE FROM ingredients WHERE id = @recipeId;
+            ";
+            int rows = _db.Execute(sql, new { recipeId });
+            return rows == 1;
+        }
+
+        internal List<Ingredient> FindByRecipe(int recipeId)
+        {
+            string sql = @"
+            SELECT
+            ing.*
+            FROM ingredients ing
+            WHERE ing.recipeId = @recipeId;
+            ";
+            List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
+            return ingredients;
+        }
+
+        internal Ingredient FindIngredient(int recipeId)
+        {
+            string sql = @"
+            SELECT 
+            ing.*
+            FROM ingredients ing
+            WHERE ing.id = @recipeId;
+            ";
+            Ingredient ingredient = _db.Query<Ingredient>(sql, new {recipeId}).FirstOrDefault();
+            return ingredient;
+        }
     }
 }

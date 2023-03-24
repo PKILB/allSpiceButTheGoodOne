@@ -7,11 +7,28 @@ namespace allSpiceButTheGoodOne.Controllers
         private readonly RecipesService _recipesService;
         private readonly Auth0Provider _auth;
 
-        public RecipesController(RecipesService recipesService, Auth0Provider auth)
+        private readonly IngredientsService _ingredientsService;
+
+        public RecipesController(RecipesService recipesService, Auth0Provider auth, IngredientsService ingredientsService)
         {
             _recipesService = recipesService;
             _auth = auth;
+            _ingredientsService = ingredientsService;
         }
+
+        [HttpGet("{id}/ingredients")]
+    public ActionResult<List<Ingredient>> FindIngredientsByRecipe(int id)
+    {
+        try
+        {
+            List<Ingredient> ingredients = _ingredientsService.FindByRecipe(id);
+            return ingredients;
+        }
+        catch (System.Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 
     [HttpGet("{id}")]
     async public Task<ActionResult<Recipe>> FindOneRecipe(int id)
