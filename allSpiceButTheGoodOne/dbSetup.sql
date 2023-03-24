@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS ingredients(
 DROP TABLE ingredients;
 
 CREATE TABLE IF NOT EXISTS favorites(
-id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 recipeId INT NOT NULL,
 accountId VARCHAR(255) NOT NULL,
 

@@ -7,6 +7,10 @@ public class Profile
   public string Picture { get; set; }
 }
 
+public class RecipeFavoriter : Profile
+{
+  public int favoriterId { get; set; }
+}
 public class Account : Profile
 {
   public string Email { get; set; }
