@@ -43,5 +43,26 @@ namespace allSpiceButTheGoodOne.Repositories
             }, new { accountId }).ToList();
             return favoriteRecipes;
         }
+
+        internal Favorite GetOne(int id)
+        {
+            string sql = @"
+            SELECT
+            *
+            FROM favorites
+            WHERE id = @id;
+            ";
+            Favorite favorite = _db.Query<Favorite>(sql, new { id }).FirstOrDefault();
+            return favorite;
+        }
+
+        internal void RemoveFavorite(int id)
+        {
+            string sql = @"
+            DELETE FROM favorites
+            WHERE id = @id;
+            ";
+            _db.Execute(sql, new { id });
+        }
     }
 }
