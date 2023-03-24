@@ -28,3 +28,14 @@ CREATE TABLE IF NOT EXISTS ingredients(
 ) default charset utf8 COMMENT '';
 
 DROP TABLE ingredients;
+
+CREATE TABLE IF NOT EXISTS favorites(
+id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
+recipeId INT NOT NULL,
+accountId VARCHAR(255) NOT NULL,
+
+  FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
+  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
+DROP TABLE favorites;
