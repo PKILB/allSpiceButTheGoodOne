@@ -24,21 +24,25 @@
     </div>
   </div>
 
-  <div class="container-fluid text-dark">
-    <section class="row">
-      <div class="col-12">
-        <!-- {{ recipes.instructions }} -->
+  <div class="container-fluid text-dark mt-4">
+    <div class="row">
+      <div v-for="r in recipes" class="col-4">
+        <div class="">
+          <Recipe :recipe="r" />
+        </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
+
 import { onMounted, computed } from 'vue';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { recipesService } from '../services/RecipesService.js';
 import { AppState } from '../AppState.js';
+import Recipe from '../components/Recipe.vue';
 
 export default {
   setup() {
@@ -56,7 +60,7 @@ export default {
     }
     return {
       recipes: computed(() => AppState.recipes),
-      account: computed(() => AppState.account)
+      // account: computed(() => AppState.account)
     }
   }
 }
@@ -64,8 +68,8 @@ export default {
 
 <style scoped lang="scss">
 .bg-image {
-  height: 30vh;
-  background-image: url(https://images.unsplash.com/photo-1542826438-bd32f43d626f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNha2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60);
+  height: 35vh;
+  background-image: url(https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-scaled.jpg?ssl=1);
   background-size: cover;
   background-position: center;
 }
